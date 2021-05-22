@@ -1,9 +1,9 @@
-import Server from "./classes/server";
+import Server from './classes/server';
 import router from "./routes/router";
 import bodyParser from 'body-parser';
 import cors from 'cors';
 
-const server = new Server();
+const server = Server.instance;
 
 // BodyParser --> Debe definirse antes que las rutas.
 server.app.use( bodyParser.urlencoded({ extended: true }) );
