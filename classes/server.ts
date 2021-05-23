@@ -1,7 +1,8 @@
 import express from 'express';
+import { SERVER_PORT } from '../global/environment';
+
 import socketIO from 'socket.io';
 import http from 'http';
-import { SERVER_PORT } from '../global/environment';
 
 import * as socket from '../sockets/sockets';
 
@@ -34,7 +35,13 @@ export default class Server {
     console.log( 'Escuchando conexiones - sockets' );
 
     this.io.on('connection', cliente => {
-      console.log( 'Cliente conectado' );
+      console.log( 'ID del socket:', cliente.id );
+
+      // Conectar cliente
+      socket.conectarCliente( cliente );
+
+      // Configurar usuario
+      socket.configurarUsuario( cliente, this.io );
 
       // Mensajes
       socket.mensaje( cliente, this.io );
